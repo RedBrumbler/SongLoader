@@ -111,8 +111,8 @@ void SongLoader::ctor() {
 
     beatmapDataLoader = BeatmapDataLoader::New_ctor();
 
-    CustomLevels = Dictionary_2<Il2CppString*, CustomPreviewBeatmapLevel*>::New_ctor();
-    CustomWIPLevels = Dictionary_2<Il2CppString*, CustomPreviewBeatmapLevel*>::New_ctor();
+    CustomLevels = Dictionary_2<StringW, CustomPreviewBeatmapLevel*>::New_ctor();
+    CustomWIPLevels = Dictionary_2<StringW, CustomPreviewBeatmapLevel*>::New_ctor();
 
     CustomLevelsPack = SongLoaderCustomBeatmapLevelPack::Make_New(CustomLevelsFolder, "Custom Levels");
     CustomWIPLevelsPack = SongLoaderCustomBeatmapLevelPack::Make_New(CustomWIPLevelsFolder, "WIP Levels", QuestUI::BeatSaberUI::Base64ToSprite(Sprites::CustomWIPLevelsCover));
@@ -153,7 +153,7 @@ CustomJSONData::CustomLevelInfoSaveData* SongLoader::GetStandardLevelInfoSaveDat
     return nullptr;
 }
 
-EnvironmentInfoSO* SongLoader::LoadEnvironmentInfo(Il2CppString* environmentName, bool allDirections) {
+EnvironmentInfoSO* SongLoader::LoadEnvironmentInfo(StringW environmentName, bool allDirections) {
     auto customlevelLoader = GetCustomLevelLoader();
     EnvironmentInfoSO* environmentInfoSO = customlevelLoader->environmentSceneInfoCollection->GetEnvironmentInfoBySerializedName(environmentName);
     if(!environmentInfoSO)
@@ -173,14 +173,14 @@ CustomPreviewBeatmapLevel* SongLoader::LoadCustomPreviewBeatmapLevel(std::string
     std::string stringLevelID = CustomLevelPrefixID + outHash;
     if(wip)
         stringLevelID += " WIP";
-    Il2CppString* levelID = il2cpp_utils::newcsstr(stringLevelID);
-    Il2CppString* songName = standardLevelInfoSaveData->songName;
+    StringW levelID = il2cpp_utils::newcsstr(stringLevelID);
+    StringW songName = standardLevelInfoSaveData->songName;
     FixEmptyString(songName)
-    Il2CppString* songSubName = standardLevelInfoSaveData->songSubName;
+    StringW songSubName = standardLevelInfoSaveData->songSubName;
     FixEmptyString(songSubName)
-    Il2CppString* songAuthorName = standardLevelInfoSaveData->songAuthorName;
+    StringW songAuthorName = standardLevelInfoSaveData->songAuthorName;
     FixEmptyString(songAuthorName)
-    Il2CppString* levelAuthorName = standardLevelInfoSaveData->levelAuthorName;
+    StringW levelAuthorName = standardLevelInfoSaveData->levelAuthorName;
     FixEmptyString(levelAuthorName)
     float beatsPerMinute = standardLevelInfoSaveData->beatsPerMinute;
     float songTimeOffset = standardLevelInfoSaveData->songTimeOffset;
@@ -276,7 +276,7 @@ float SongLoader::GetLengthFromMap(CustomPreviewBeatmapLevel* level, std::string
     return beatmapDataLoader->GetRealTimeFromBPMTime(highestTime, level->beatsPerMinute, level->shuffle, level->shufflePeriod);
 }
 
-ArrayW<CustomPreviewBeatmapLevel*> GetDictionaryValues(Dictionary_2<Il2CppString*, CustomPreviewBeatmapLevel*>* dictionary) {
+ArrayW<CustomPreviewBeatmapLevel*> GetDictionaryValues(Dictionary_2<StringW, CustomPreviewBeatmapLevel*>* dictionary) {
     if(!dictionary)
         return ArrayW<CustomPreviewBeatmapLevel*>();
     auto array = ArrayW<CustomPreviewBeatmapLevel*>(dictionary->get_Count());

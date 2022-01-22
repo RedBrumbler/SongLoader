@@ -93,7 +93,7 @@ namespace RuntimeSongLoader::LoadingFixHooks {
         self->songDuration = customPreviewBeatmapLevel->songDuration;
     }
 
-    MAKE_HOOK_FIND(Assert_IsTrue, classof(NUnit::Framework::_Assert*), "IsTrue", void, bool, Il2CppString* message, Array<Il2CppObject*>* args) {
+    MAKE_HOOK_FIND(Assert_IsTrue, classof(NUnit::Framework::_Assert*), "IsTrue", void, bool, StringW message, Array<Il2CppObject*>* args) {
         //LOG_DEBUG("Assert_IsTrue");
     }
 

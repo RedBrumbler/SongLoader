@@ -65,7 +65,7 @@ namespace RuntimeSongLoader::CustomBeatmapLevelLoader {
         std::string path = customLevelPath + "/" + difficultyFileName;
         BeatmapData* beatmapData = nullptr;
         if(fileexists(path)) {
-            Il2CppString* json = il2cpp_utils::newcsstr(FileUtils::ReadAllText16(path));
+            StringW json = il2cpp_utils::newcsstr(FileUtils::ReadAllText16(path));
 
             //Temporary fix because exceptions don't work
             auto optional = il2cpp_utils::RunMethod<BeatmapData*>(BeatmapDataLoader::New_ctor(), "GetBeatmapDataFromJson", json, standardLevelInfoSaveData->beatsPerMinute, standardLevelInfoSaveData->shuffle, standardLevelInfoSaveData->shufflePeriod);
