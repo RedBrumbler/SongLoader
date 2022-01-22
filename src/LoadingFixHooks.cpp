@@ -93,7 +93,7 @@ namespace RuntimeSongLoader::LoadingFixHooks {
         self->songDuration = customPreviewBeatmapLevel->songDuration;
     }
 
-    MAKE_HOOK_FIND(Assert_IsTrue, classof(NUnit::Framework::_Assert*), "IsTrue", void, bool, StringW message, Array<Il2CppObject*>* args) {
+    MAKE_HOOK_FIND(Assert_IsTrue, classof(NUnit::Framework::_Assert*), "IsTrue", void, bool, StringW message, ArrayW<Il2CppObject*> args) {
         //LOG_DEBUG("Assert_IsTrue");
     }
 
@@ -174,7 +174,7 @@ namespace RuntimeSongLoader::LoadingFixHooks {
         if (!original)
             return nullptr;
 
-        ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet *> customBeatmapSets = Array<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet *>::NewLength(original->difficultyBeatmapSets.Length());
+        ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet *> customBeatmapSets = ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet *>(original->difficultyBeatmapSets.Length());
 
         CustomJSONData::CustomLevelInfoSaveData *customSaveData = CRASH_UNLESS(
                 il2cpp_utils::New<CustomJSONData::CustomLevelInfoSaveData *>(original->songName,
@@ -215,7 +215,7 @@ namespace RuntimeSongLoader::LoadingFixHooks {
             GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet *standardBeatmapSet = original->difficultyBeatmapSets[i];
             LOG_INFO("beatmapset: %p", standardBeatmapSet);
             LOG_INFO("standardBeatmapSet->difficultyBeatmaps: %p", (Il2CppArray *) standardBeatmapSet->difficultyBeatmaps);
-            ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmap *> customBeatmaps = Array<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmap *>::NewLength(standardBeatmapSet->difficultyBeatmaps.Length());
+            ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmap *> customBeatmaps = ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmap *>(standardBeatmapSet->difficultyBeatmaps.Length());
 
             for (rapidjson::SizeType j = 0; j < standardBeatmapSet->difficultyBeatmaps.Length(); j++) {
                 CustomJSONData::ValueUTF16 &difficultyBeatmapJson = beatmapSetJson.FindMember(u"_difficultyBeatmaps")->value[j];

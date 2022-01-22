@@ -404,13 +404,13 @@ void SongLoader::RefreshSongs(bool fullRefresh, std::function<void(std::vector<C
                 Thread::Yield();
             }
 
-            auto customPreviewLevels = static_cast<Array<CustomPreviewBeatmapLevel*>*>(GetDictionaryValues(CustomLevels));
-            auto customWIPPreviewLevels = static_cast<Array<CustomPreviewBeatmapLevel*>*>(GetDictionaryValues(CustomWIPLevels));
+            auto customPreviewLevels = GetDictionaryValues(CustomLevels);
+            auto customWIPPreviewLevels = GetDictionaryValues(CustomWIPLevels);
             
             CustomLevelsPack->SetCustomPreviewBeatmapLevels(customPreviewLevels);
             CustomWIPLevelsPack->SetCustomPreviewBeatmapLevels(customWIPPreviewLevels);
 
-            int levelsCount = customPreviewLevels->Length() + customWIPPreviewLevels->Length();
+            int levelsCount = customPreviewLevels.Length() + customWIPPreviewLevels.Length();
             
             auto duration = duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start); 
             
@@ -418,8 +418,8 @@ void SongLoader::RefreshSongs(bool fullRefresh, std::function<void(std::vector<C
             LOG_INFO("Loaded %d songs in %dms!", levelsCount, (int)duration.count());
             
             LoadedLevels.clear();
-            LoadedLevels.insert(LoadedLevels.end(), customPreviewLevels->values, customPreviewLevels->values + customPreviewLevels->Length());
-            LoadedLevels.insert(LoadedLevels.end(), customWIPPreviewLevels->values, customWIPPreviewLevels->values + customWIPPreviewLevels->Length());
+            LoadedLevels.insert(LoadedLevels.end(), customPreviewLevels.begin(), customPreviewLevels.end());
+            LoadedLevels.insert(LoadedLevels.end(), customWIPPreviewLevels.begin(), customWIPPreviewLevels.end());
             
             QuestUI::MainThreadScheduler::Schedule(
                 [this, songsLoaded] {

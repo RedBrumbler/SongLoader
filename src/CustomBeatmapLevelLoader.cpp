@@ -116,7 +116,7 @@ namespace RuntimeSongLoader::CustomBeatmapLevelLoader {
         return reinterpret_cast<IDifficultyBeatmapSet*>(difficultyBeatmapSet);
     }
 
-    Array<IDifficultyBeatmapSet*>* LoadDifficultyBeatmapSets(std::string const& customLevelPath, CustomBeatmapLevel* customBeatmapLevel, CustomJSONData::CustomLevelInfoSaveData* standardLevelInfoSaveData) {
+    ArrayW<IDifficultyBeatmapSet*> LoadDifficultyBeatmapSets(std::string const& customLevelPath, CustomBeatmapLevel* customBeatmapLevel, CustomJSONData::CustomLevelInfoSaveData* standardLevelInfoSaveData) {
         LOG_DEBUG("LoadDifficultyBeatmapSetsAsync Start");
         ArrayW<IDifficultyBeatmapSet*> difficultyBeatmapSets = ArrayW<IDifficultyBeatmapSet*>(standardLevelInfoSaveData->difficultyBeatmapSets.Length());
         for(int i = 0; i < difficultyBeatmapSets.Length(); i++) {
@@ -126,7 +126,7 @@ namespace RuntimeSongLoader::CustomBeatmapLevelLoader {
             difficultyBeatmapSets[i] = difficultyBeatmapSet;
         }
         LOG_DEBUG("LoadDifficultyBeatmapSetsAsync Stop");
-        return (Array<IDifficultyBeatmapSet*>*) difficultyBeatmapSets;
+        return difficultyBeatmapSets;
     }
 
     BeatmapLevelData* LoadBeatmapLevelData(std::string const& customLevelPath, CustomBeatmapLevel* customBeatmapLevel, CustomJSONData::CustomLevelInfoSaveData* standardLevelInfoSaveData) {

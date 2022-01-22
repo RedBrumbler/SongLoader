@@ -25,13 +25,9 @@ void SongLoaderCustomBeatmapLevelPack::ctor(StringW packID, StringW packName, Sp
 }
 
 void SongLoaderCustomBeatmapLevelPack::SortLevels() {
-    auto array = static_cast<Array<CustomPreviewBeatmapLevel*>*>(CustomLevelsCollection->customPreviewBeatmapLevels);
-    if(!array)
-        return;
-    auto arrayValues = array->values;
-    auto length = array->Length();
-    if(length > 0)
-        std::sort(arrayValues, arrayValues + length, [](CustomPreviewBeatmapLevel* first, CustomPreviewBeatmapLevel* second) { return to_utf8(csstrtostr(first->songName)) < to_utf8(csstrtostr(second->songName)); } );
+    auto array = CustomLevelsCollection->customPreviewBeatmapLevels;
+    if(array.Length() > 0)
+        std::sort(array.begin(), array.end(), [](CustomPreviewBeatmapLevel* first, CustomPreviewBeatmapLevel* second) { return to_utf8(csstrtostr(first->songName)) < to_utf8(csstrtostr(second->songName)); } );
 }
 
 ArrayW<GlobalNamespace::CustomPreviewBeatmapLevel*> SongLoaderCustomBeatmapLevelPack::GetCustomPreviewBeatmapLevels() {

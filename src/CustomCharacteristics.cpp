@@ -80,6 +80,7 @@ namespace RuntimeSongLoader::CustomCharacteristics {
 
     MAKE_HOOK_MATCH(BeatmapCharacteristicCollectionSO_GetBeatmapCharacteristicBySerializedName,&BeatmapCharacteristicCollectionSO::GetBeatmapCharacteristicBySerializedName, BeatmapCharacteristicSO*, BeatmapCharacteristicCollectionSO* self, StringW serializedName)
     {
+        LOG_DEBUG("Serialized Name: %s", to_utf8(csstrtostr(serializedName)).c_str());
         BeatmapCharacteristicSO* result = BeatmapCharacteristicCollectionSO_GetBeatmapCharacteristicBySerializedName(self, serializedName);
         if(!result)
             result = FindByName("MissingCharacteristic");
