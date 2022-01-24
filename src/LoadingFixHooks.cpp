@@ -138,7 +138,7 @@ namespace RuntimeSongLoader::LoadingFixHooks {
     }
 
     MAKE_HOOK_MATCH(AdditionalContentModel_GetLevelEntitlementStatusAsync, &AdditionalContentModel::GetLevelEntitlementStatusAsync, Task_1<AdditionalContentModel::EntitlementStatus>*, AdditionalContentModel* self, StringW levelId, CancellationToken cancellationToken) {
-        std::string levelIdCpp = to_utf8(csstrtostr(levelId));
+        std::string levelIdCpp = levelId;
         LOG_DEBUG("AdditionalContentModel_GetLevelEntitlementStatusAsync %s", levelIdCpp.c_str());
         if(levelIdCpp.starts_with(CustomLevelPrefixID)) {
             auto beatmapLevelsModel = FindComponentsUtils::GetBeatmapLevelsModel();
@@ -149,7 +149,7 @@ namespace RuntimeSongLoader::LoadingFixHooks {
     }
 
     MAKE_HOOK_MATCH(AdditionalContentModel_GetPackEntitlementStatusAsync, &AdditionalContentModel::GetPackEntitlementStatusAsync, Task_1<AdditionalContentModel::EntitlementStatus>*, AdditionalContentModel* self, StringW levelPackId, CancellationToken cancellationToken) {
-        std::string levelPackIdCpp = to_utf8(csstrtostr(levelPackId));
+        std::string levelPackIdCpp = levelPackId;
         LOG_DEBUG("AdditionalContentModel_GetPackEntitlementStatusAsync %s", levelPackIdCpp.c_str());
         
         if(levelPackIdCpp.starts_with(CustomLevelPackPrefixID))
