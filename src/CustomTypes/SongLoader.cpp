@@ -175,6 +175,8 @@ CustomPreviewBeatmapLevel* SongLoader::LoadCustomPreviewBeatmapLevel(std::string
         stringLevelID += " WIP";
     StringW levelID = il2cpp_utils::newcsstr(stringLevelID);
     StringW songName = standardLevelInfoSaveData->songName;
+    LOG_DEBUG("songname ptr after parsing: %p on %p", standardLevelInfoSaveData->songName.convert(), standardLevelInfoSaveData);
+
     FixEmptyString(songName)
     StringW songSubName = standardLevelInfoSaveData->songSubName;
     FixEmptyString(songSubName)

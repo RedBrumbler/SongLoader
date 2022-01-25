@@ -1,5 +1,6 @@
 // Implementation by https://github.com/StackDoubleFlow
 #include "CustomTypes/CustomLevelInfoSaveData.hpp"
+#include "CustomLogger.hpp"
 
 using namespace GlobalNamespace;
 using namespace CustomJSONData;
@@ -12,6 +13,10 @@ void CustomLevelInfoSaveData::ctor(StringW songName, StringW songSubName,
 				 float previewDuration, StringW songFilename, StringW coverImageFilename, 
 				 StringW environmentName, StringW allDirectionsEnvironmentName, 
 				 ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet*> difficultyBeatmapSets) {
+	LOG_DEBUG("songname ptr inside: %p, this: %p", songName.convert(), this);
+	std::string converted = songName;
+	LOG_DEBUG("contents: %s", converted.c_str());
+
 	INVOKE_CTOR();
 	static auto* ctor = il2cpp_utils::FindMethodUnsafe("", "StandardLevelInfoSaveData", ".ctor", 15);
 	CRASH_UNLESS(il2cpp_utils::RunMethod(this, ctor, songName, songSubName, songAuthorName, levelAuthorName, 

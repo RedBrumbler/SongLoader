@@ -176,22 +176,41 @@ namespace RuntimeSongLoader::LoadingFixHooks {
 
         ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet *> customBeatmapSets = ArrayW<GlobalNamespace::StandardLevelInfoSaveData::DifficultyBeatmapSet *>(original->difficultyBeatmapSets.Length());
 
-        CustomJSONData::CustomLevelInfoSaveData *customSaveData = CRASH_UNLESS(
-                il2cpp_utils::New<CustomJSONData::CustomLevelInfoSaveData *>(original->songName,
+        LOG_DEBUG("songname ptr outside: %p", original->songName.convert());
+        static_assert(il2cpp_utils::has_il2cpp_conversion<StringW>);
+        auto copy = StringW(original->songName);
+        auto copyconvert = StringW(original->songName.convert());
+        LOG_DEBUG("songname ptr outside copied: %p", copy.convert());
+        LOG_DEBUG("songname ptr outside copied from convert: %p", copyconvert.convert());
+        auto val = il2cpp_utils::ExtractValue(original->songName);
+        LOG_DEBUG("songname ptr extract: %p", val);
+        
+        
+        LOG_DEBUG("songname ptr addr: %p", &original->songName);
+        StringW w;
+        memcpy(&w, &original->songName, sizeof(StringW));
+        LOG_DEBUG("songname ptr memcpy: %p", w.convert());
+
+        CustomJSONData::CustomLevelInfoSaveData *customSaveData =
+                CustomJSONData::CustomLevelInfoSaveData::New_ctor(StringW(original->songName.convert()),
                                                                              original->songSubName,
                                                                              original->songAuthorName,
                                                                              original->levelAuthorName,
                                                                              original->beatsPerMinute,
                                                                              original->songTimeOffset,
-                                                                             original->shuffle, original->shufflePeriod,
+                                                                             original->shuffle, 
+                                                                             original->shufflePeriod,
                                                                              original->previewStartTime,
                                                                              original->previewDuration,
                                                                              original->songFilename,
                                                                              original->coverImageFilename,
                                                                              original->environmentName,
                                                                              original->allDirectionsEnvironmentName,
-                                                                             customBeatmapSets));
+                                                                             customBeatmapSets);
 
+        LOG_DEBUG("songname ptr before parsing: %p on %p", original->songName.convert(), customSaveData);
+        LOG_DEBUG("songname ptr from customsavedata: %p on %p", customSaveData->songName.convert(), customSaveData);
+        LOG_DEBUG("Contents: %s", to_utf8(csstrtostr(customSaveData->songName)).c_str());
         std::u16string str(stringData ? csstrtostr(stringData) : u"{}");
 
         auto sharedDoc = std::make_shared<CustomJSONData::DocumentUTF16>();
